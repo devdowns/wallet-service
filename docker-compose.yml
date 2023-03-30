@@ -23,7 +23,6 @@ services:
       DB_PW: postgres
       DB_USER: postgres
       DB_URL: jdbc:postgresql://pg:5432/wallet_service_db
-#      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka/
     networks:
       - devsnetwork
 
