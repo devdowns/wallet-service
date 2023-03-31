@@ -3,9 +3,9 @@ package com.devdowns.walletservice.application;
 import static java.util.Objects.isNull;
 
 import com.devdowns.walletservice.domain.configuration.GlobalBankAccountSetting;
-import com.devdowns.walletservice.domain.dto.wallet.BalanceResponse;
-import com.devdowns.walletservice.domain.dto.wallet.CreateWalletTransactionRequest;
-import com.devdowns.walletservice.domain.dto.wallet.TransactionCreatedResponse;
+import com.devdowns.walletservice.domain.dto.BalanceResponse;
+import com.devdowns.walletservice.domain.dto.CreateWalletTransactionRequest;
+import com.devdowns.walletservice.domain.dto.TransactionCreatedResponse;
 import com.devdowns.walletservice.domain.entity.BankAccount;
 import com.devdowns.walletservice.domain.entity.Wallet;
 import com.devdowns.walletservice.domain.entity.WalletTransaction;

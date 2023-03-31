@@ -1,4 +1,4 @@
-package com.devdowns.walletservice.domain.dto.wallet;
+package com.devdowns.walletservice.domain.dto;
 
 import com.devdowns.walletservice.domain.enums.TransactionStatus;
 import com.devdowns.walletservice.domain.enums.TransactionType;

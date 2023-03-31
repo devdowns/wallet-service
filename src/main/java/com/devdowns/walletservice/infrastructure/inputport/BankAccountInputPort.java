@@ -1,7 +1,7 @@
 package com.devdowns.walletservice.infrastructure.inputport;
 
-import com.devdowns.walletservice.domain.dto.wallet.BankDetails;
-import com.devdowns.walletservice.domain.dto.wallet.SetBankDetailsResponse;
+import com.devdowns.walletservice.domain.dto.BankDetails;
+import com.devdowns.walletservice.domain.dto.SetBankDetailsResponse;
 
 public interface BankAccountInputPort {
 

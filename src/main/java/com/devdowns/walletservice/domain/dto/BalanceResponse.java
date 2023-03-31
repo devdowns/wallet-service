@@ -1,4 +1,4 @@
-package com.devdowns.walletservice.domain.dto.wallet;
+package com.devdowns.walletservice.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
@@ -11,10 +11,10 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-public class CreateWalletTransactionRequest {
+public class BalanceResponse {
 
-  @JsonProperty("amount")
-  private BigDecimal amount;
+  @JsonProperty("balance")
+  private BigDecimal balance;
 
   @JsonProperty("user_id")
   private Long userId;

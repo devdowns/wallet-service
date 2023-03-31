@@ -2,8 +2,8 @@ package com.devdowns.walletservice.application;
 
 import static java.util.Objects.isNull;
 
-import com.devdowns.walletservice.domain.dto.wallet.TransactionRequestFilter;
-import com.devdowns.walletservice.domain.dto.wallet.WalletTransactionHistory;
+import com.devdowns.walletservice.domain.dto.TransactionRequestFilter;
+import com.devdowns.walletservice.domain.dto.WalletTransactionHistory;
 import com.devdowns.walletservice.domain.entity.Wallet;
 import com.devdowns.walletservice.domain.entity.WalletTransaction;
 import com.devdowns.walletservice.domain.enums.TransactionType;
@@ -61,7 +61,7 @@ public class WalletTransactionHistoryUseCase implements WalletTransactionInputPo
     );
 
     if (!isNull(requestFilter.getMinAmount())) {
-      BigDecimal minAmount = requestFilter.getMinAmount();
+      final BigDecimal minAmount = requestFilter.getMinAmount();
       spec = spec.and((root, query, cb) -> cb.greaterThanOrEqualTo(
           root.get("amount"),
           minAmount)
@@ -69,7 +69,7 @@ public class WalletTransactionHistoryUseCase implements WalletTransactionInputPo
     }
 
     if (!isNull(requestFilter.getMaxAmount())) {
-      BigDecimal maxAmount = requestFilter.getMaxAmount();
+      final BigDecimal maxAmount = requestFilter.getMaxAmount();
       spec = spec.and((root, query, cb) -> cb.lessThanOrEqualTo(
           root.get("amount"),
           maxAmount)

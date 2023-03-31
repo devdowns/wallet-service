@@ -1,12 +1,12 @@
 package com.devdowns.walletservice.infrastructure.inputadapter.http;
 
-import com.devdowns.walletservice.domain.dto.wallet.BalanceResponse;
-import com.devdowns.walletservice.domain.dto.wallet.BankDetails;
-import com.devdowns.walletservice.domain.dto.wallet.CreateWalletTransactionRequest;
-import com.devdowns.walletservice.domain.dto.wallet.SetBankDetailsResponse;
-import com.devdowns.walletservice.domain.dto.wallet.TransactionCreatedResponse;
-import com.devdowns.walletservice.domain.dto.wallet.TransactionRequestFilter;
-import com.devdowns.walletservice.domain.dto.wallet.WalletTransactionHistory;
+import com.devdowns.walletservice.domain.dto.BalanceResponse;
+import com.devdowns.walletservice.domain.dto.BankDetails;
+import com.devdowns.walletservice.domain.dto.CreateWalletTransactionRequest;
+import com.devdowns.walletservice.domain.dto.SetBankDetailsResponse;
+import com.devdowns.walletservice.domain.dto.TransactionCreatedResponse;
+import com.devdowns.walletservice.domain.dto.TransactionRequestFilter;
+import com.devdowns.walletservice.domain.dto.WalletTransactionHistory;
 import com.devdowns.walletservice.infrastructure.inputport.BankAccountInputPort;
 import com.devdowns.walletservice.infrastructure.inputport.WalletInputPort;
 import com.devdowns.walletservice.infrastructure.inputport.WalletTransactionInputPort;

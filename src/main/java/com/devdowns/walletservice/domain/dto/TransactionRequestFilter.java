@@ -1,4 +1,4 @@
-package com.devdowns.walletservice.domain.dto.wallet;
+package com.devdowns.walletservice.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;

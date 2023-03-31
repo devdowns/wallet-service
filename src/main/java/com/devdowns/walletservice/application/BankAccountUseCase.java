@@ -3,8 +3,8 @@ package com.devdowns.walletservice.application;
 import static java.util.Objects.isNull;
 
 import com.devdowns.walletservice.domain.configuration.GlobalBankAccountSetting;
-import com.devdowns.walletservice.domain.dto.wallet.BankDetails;
-import com.devdowns.walletservice.domain.dto.wallet.SetBankDetailsResponse;
+import com.devdowns.walletservice.domain.dto.BankDetails;
+import com.devdowns.walletservice.domain.dto.SetBankDetailsResponse;
 import com.devdowns.walletservice.domain.entity.BankAccount;
 import com.devdowns.walletservice.domain.exception.MalformedRequestException;
 import com.devdowns.walletservice.infrastructure.inputport.BankAccountInputPort;

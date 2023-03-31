@@ -1,8 +1,8 @@
 package com.devdowns.walletservice.infrastructure.inputport;
 
-import com.devdowns.walletservice.domain.dto.wallet.BalanceResponse;
-import com.devdowns.walletservice.domain.dto.wallet.CreateWalletTransactionRequest;
-import com.devdowns.walletservice.domain.dto.wallet.TransactionCreatedResponse;
+import com.devdowns.walletservice.domain.dto.BalanceResponse;
+import com.devdowns.walletservice.domain.dto.CreateWalletTransactionRequest;
+import com.devdowns.walletservice.domain.dto.TransactionCreatedResponse;
 import jakarta.transaction.Transactional;
 
 public interface WalletInputPort {

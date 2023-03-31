@@ -1,7 +1,8 @@
-package com.devdowns.walletservice.domain.dto.wallet;
+package com.devdowns.walletservice.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,10 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class TransactionCreatedResponse {
-
-  @JsonProperty("wallet_transaction_id")
-  private Long walletTransactionId;
+@AllArgsConstructor
+public class CreateWalletTransactionRequest {
 
   @JsonProperty("amount")
   private BigDecimal amount;
