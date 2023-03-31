@@ -29,6 +29,7 @@ public class BankAccountUseCase implements BankAccountInputPort {
 
   @Override
   public SetBankDetailsResponse setBankAccount(BankDetails bankDetails) {
+
     verifyBankAccountDetails(bankDetails);
 
     final BankAccount bankAccount = findOrCreateBankAccount(bankDetails);

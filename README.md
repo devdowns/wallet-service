@@ -56,12 +56,14 @@ within the container to ensure portability.
   a **WalletTransaction** and **PaymentTransaction** and moves the funds
 * All fund transfers happen from **BankAccount** to **BankAccount** i.e. your Wallet (**OnTop's
   BankAccount** & your other **BankAccount**)
-* A 10% fee is applied to all **Wallet withdrawals**
+* A 10% fee is applied to all **Wallet withdrawals** and credited to the OnTop Bank Account. i.e if
+  transferring $1000.00 the destination BankAccount receives $900.00 with the remaining $100.00
+  going to the OnTop BankAccount
 * **Wallet** balances are synchronized to reflect **PaymentTransactions** and status
 * **Refunds** are granted on failed withdraws
 
     * Some exceptions like throwing 500 and 404 on matching user_id where thrown for fun since
-      they were included in the mocks 😁**
+      they were included in the mocks 😁
 
 ## Process flow
 

@@ -41,7 +41,8 @@ public class PaymentUseCase implements PaymentInputPort {
       updateAccountBalance(source, netAmount);
     } else if (status.equals(PaymentStatus.COMPLETED)) {
       createBankTransaction(source, destination, netAmount, status);
-      updateAccountBalance(destination, netAmount);
+      updateAccountBalance(destination, amountMinusFee(netAmount));
+      creditFeeToOnTop(netAmount);
     }
     return status;
   }
@@ -53,6 +54,17 @@ public class PaymentUseCase implements PaymentInputPort {
   private void updateAccountBalance(BankAccount bankAccount, BigDecimal amount) {
     bankAccount.setBalance(bankAccount.getBalance().add(amount));
     bankAccountRepository.save(bankAccount);
+  }
+
+  private BigDecimal amountMinusFee(BigDecimal amount) {
+    return amount.multiply(BigDecimal.valueOf(0.9));
+  }
+
+  private void creditFeeToOnTop(BigDecimal amount) {
+    BigDecimal fee = amount.multiply(BigDecimal.valueOf(0.1));
+    BankAccount onTopBankAccount = bankAccountRepository.getOnTopBankAccount().get();
+    onTopBankAccount.setBalance(onTopBankAccount.getBalance().add(fee));
+    bankAccountRepository.save(onTopBankAccount);
   }
 
   private void createBankTransaction(BankAccount source, BankAccount destination, BigDecimal amount,

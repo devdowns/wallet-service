@@ -1,0 +1,495 @@
+{
+	"info": {
+		"_postman_id": "6feb1141-98c3-4921-b609-bf2cf2a51586",
+		"name": "Wallet & Transactions Code Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7653050"
+	},
+	"item": [
+		{
+			"name": "Set bank account for transfers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Little\",\n  \"surname\": \"Prince\",\n  \"national_id\": \"0987654321\",\n  \"account_number\": \"9876543210987654\",\n  \"routing_number\": \"987654321\",\n  \"bank_name\": \"B612\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/wallets/transactions/bank",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"wallets",
+						"transactions",
+						"bank"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 set bank account✓",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Little\",\n  \"surname\": \"Prince\",\n  \"national_id\": \"0987654321\",\n  \"account_number\": \"9876543210987654\",\n  \"routing_number\": \"987654321\",\n  \"bank_name\": \"B612\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions/bank",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions",
+								"bank"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "400 (Invalid Body)✓",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Little\",\n  \"surname\": \"Prince\",\n  \"national_id\": \"0987654321\",\n  \"routing_number\": \"987654321\",\n  \"bank_name\": \"B612\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions/bank",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions",
+								"bank"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create wallet transactions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 21000,\n    \"user_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/wallets/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"wallets",
+						"transactions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 withdraw✓",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": -1000,\n    \"user_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "200 topup✓",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 2000,\n    \"user_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "400 (Insufficient Balance)✓",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": -21000,\n    \"user_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "400 (Invalid Body)✓",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "500 (obtained when user_id is 500)✓",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 21000,\n    \"user_id\": 500\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "404 (obtained when user_id is 404)✓",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 21000,\n    \"user_id\": 404\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Check wallet balance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8001/wallets/balance?user_id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"wallets",
+						"balance"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200✓",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/wallets/balance?user_id=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"balance"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "404✓",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/wallets/balance?user_id=111111",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"balance"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "111111"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Retrieve wallet transaction history",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 1,\n    \"page\": 1,\n    \"size\": 10,\n    \"min_amount\": 1,\n    \"max_amount\": 3000.00,\n    \"start_date\": \"2023-01-01T00:00:00\",\n    \"end_date\": \"2024-04-15T23:59:59\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/wallets/transactions/history",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"wallets",
+						"transactions",
+						"history"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200✓",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"page\": 0,\n    \"size\": 10,\n    \"min_amount\": 0.01,\n    \"max_amount\": 25000.00,\n    \"start_date\": \"2023-01-01\",\n    \"end_date\": \"2024-04-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions/history",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions",
+								"history"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "404✓",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 111111,\n    \"page\": 1,\n    \"size\": 10,\n    \"min_amount\": 1,\n    \"max_amount\": 3000.00,\n    \"start_date\": \"2023-01-01T00:00:00\",\n    \"end_date\": \"2024-04-15T23:59:59\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8001/wallets/transactions/history",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"wallets",
+								"transactions",
+								"history"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}

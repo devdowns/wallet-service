@@ -137,7 +137,7 @@ public class WalletUseCase implements WalletInputPort {
   }
 
   private BankAccount getBankingDetails(Optional<BankAccount> bankAccount) {
-    if (bankAccount.isEmpty()) {
+    if (isNull(bankAccount)) {
       throw new BankingDetailsNotSetException();
     }
     return bankAccount

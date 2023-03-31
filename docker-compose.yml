@@ -10,7 +10,6 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: wallet_service_db
 
-
   wallet-service:
     build: .
     ports:
@@ -21,4 +20,3 @@ services:
       DB_PW: postgres
       DB_USER: postgres
       DB_URL: jdbc:postgresql://pg:5432/wallet_service_db
-

@@ -56,11 +56,11 @@ public class WalletAPI {
     return ResponseEntity.ok().body(response);
   }
 
-  @PostMapping("/transactions/bank")
+  @GetMapping(value = "/transactions/bank")
   public ResponseEntity<SetBankDetailsResponse> setBankAccount(
       @RequestBody BankDetails bankDetails) {
     SetBankDetailsResponse response = bankAccountInputPort.setBankAccount(bankDetails);
     return ResponseEntity.ok().body(response);
   }
-
+  
 }
