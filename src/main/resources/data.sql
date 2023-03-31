@@ -24,4 +24,3 @@ VALUES ('OnTop', 'Bank', '1234567890', '1234567890123456', '123456789', 'OnTop',
 INSERT INTO wallet(balance, bank_account_id, user_id)
 VALUES (10000, 1, 1),
        (5000, 1, 2);
-

@@ -37,7 +37,7 @@
 				{
 					"name": "200 set bank account✓",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -61,10 +61,33 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:00:14 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"holder_name\": \"Little Prince\",\n    \"account_number\": \"9876543210987654\",\n    \"routing_number\": \"987654321\",\n    \"bank_name\": \"B612\"\n}"
 				},
 				{
 					"name": "400 (Invalid Body)✓",
@@ -93,10 +116,29 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:00:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"code\": \"INVALID_BODY\",\n    \"message\": \"Bank account details are incomplete.\"\n}"
 				}
 			]
 		},
@@ -153,10 +195,33 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:01:03 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"wallet_transaction_id\": 1,\n    \"amount\": -1000,\n    \"user_id\": 1\n}"
 				},
 				{
 					"name": "200 topup✓",
@@ -184,10 +249,33 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:01:16 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"wallet_transaction_id\": 2,\n    \"amount\": 2000,\n    \"user_id\": 1\n}"
 				},
 				{
 					"name": "400 (Insufficient Balance)✓",
@@ -215,10 +303,29 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:01:26 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"code\": \"INSUFFICIENT_BALANCE\",\n    \"message\": \"insufficient balance in wallet\"\n}"
 				},
 				{
 					"name": "400 (Invalid Body)✓",
@@ -246,10 +353,29 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:01:39 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"code\": \"INVALID_BODY\",\n    \"message\": \"amount and user_id must not be null\"\n}"
 				},
 				{
 					"name": "500 (obtained when user_id is 500)✓",
@@ -277,10 +403,29 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:01:49 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"code\": \"GENERIC_ERROR\",\n    \"message\": \"yikes, something bad happened\"\n}"
 				},
 				{
 					"name": "404 (obtained when user_id is 404)✓",
@@ -308,10 +453,33 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:02:02 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"code\": \"INVALID_USER\",\n    \"message\": \"user not found\"\n}"
 				}
 			]
 		},
@@ -362,10 +530,33 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:02:11 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"balance\": 9000,\n    \"user_id\": 1\n}"
 				},
 				{
 					"name": "404✓",
@@ -390,10 +581,33 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:02:25 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"code\": \"WALLET_NOT_FOUND\",\n    \"message\": \"wallet not found\"\n}"
 				}
 			]
 		},
@@ -452,10 +666,33 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:03:05 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "[\n    {\n        \"transaction_id\": 9,\n        \"status\": \"FAILED\",\n        \"amount\": 2000,\n        \"transaction_type\": \"DEPOSIT\",\n        \"date\": \"31 Mar 2023 13:02\"\n    },\n    {\n        \"transaction_id\": 8,\n        \"status\": \"REFUNDED\",\n        \"amount\": 1000,\n        \"transaction_type\": \"DEPOSIT\",\n        \"date\": \"31 Mar 2023 13:02\"\n    },\n    {\n        \"transaction_id\": 7,\n        \"status\": \"FAILED\",\n        \"amount\": -1000,\n        \"transaction_type\": \"WITHDRAW\",\n        \"date\": \"31 Mar 2023 13:02\"\n    },\n    {\n        \"transaction_id\": 6,\n        \"status\": \"COMPLETED\",\n        \"amount\": -1000,\n        \"transaction_type\": \"WITHDRAW\",\n        \"date\": \"31 Mar 2023 13:02\"\n    },\n    {\n        \"transaction_id\": 5,\n        \"status\": \"REFUNDED\",\n        \"amount\": 1000,\n        \"transaction_type\": \"DEPOSIT\",\n        \"date\": \"31 Mar 2023 13:02\"\n    },\n    {\n        \"transaction_id\": 4,\n        \"status\": \"FAILED\",\n        \"amount\": -1000,\n        \"transaction_type\": \"WITHDRAW\",\n        \"date\": \"31 Mar 2023 13:02\"\n    },\n    {\n        \"transaction_id\": 3,\n        \"status\": \"COMPLETED\",\n        \"amount\": -1000,\n        \"transaction_type\": \"WITHDRAW\",\n        \"date\": \"31 Mar 2023 13:02\"\n    },\n    {\n        \"transaction_id\": 2,\n        \"status\": \"FAILED\",\n        \"amount\": 2000,\n        \"transaction_type\": \"DEPOSIT\",\n        \"date\": \"31 Mar 2023 13:01\"\n    },\n    {\n        \"transaction_id\": 1,\n        \"status\": \"COMPLETED\",\n        \"amount\": -1000,\n        \"transaction_type\": \"WITHDRAW\",\n        \"date\": \"31 Mar 2023 13:01\"\n    }\n]"
 				},
 				{
 					"name": "404✓",
@@ -484,10 +721,33 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 19:03:29 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
 					"cookie": [],
-					"body": null
+					"body": "{\n    \"code\": \"WALLET_NOT_FOUND\",\n    \"message\": \"wallet not found\"\n}"
 				}
 			]
 		}

@@ -177,8 +177,7 @@ public class WalletUseCase implements WalletInputPort {
         .build()
     );
   }
-
-
+  
   private TransactionCreatedResponse buildTransactionCreatedResponse(WalletTransaction transaction,
       CreateWalletTransactionRequest request) {
     return TransactionCreatedResponse.builder()

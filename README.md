@@ -19,19 +19,23 @@ get a format spec for your favourite IDE [here](https://github.com/google/styleg
 ## Architecture
 
 This project follows a hexagonal architecture pattern, with ports and adapters. JpaRepositories
-create their adapter at runtime so there's no need for the output adapter folder. Comunication
-between different components is done through interfaces and DTOs.
+create their adapter at runtime so there's no need for the output adapter folder. Communication
+between different components is done through interfaces and DTOs
 
 ## Running the Application with Docker Compose
 
 To run the application using Docker Compose, follow these steps:
 
-1. Clone the repository to your local machine.
-2. Navigate to the project directory.
+1. Clone the repository to your local machine
+2. Navigate to the project directory
 3. Run the following command to start the application and its database ```docker-compose up```
 4. The application should now be running on `http://localhost:8001`
-5. PostgreSQL should be running on port `5432` with a database called `wallet_service_db`
+5. PostgreSQL should be running on port `5432` with user **postgres**, password **postgres** and
+   database called `wallet_service_db`
 6. Starter data is automatically seeded and reset with each run
+7. Should you run into any issues, it can be built with maven and it runs on the same ports locally,
+   you'd just have to ensure that the `wallet_service_db` exists before running it so that hibernate
+   can populate it
 
 ## Dockerized Components
 
@@ -60,7 +64,8 @@ within the container to ensure portability.
   transferring $1000.00 the destination BankAccount receives $900.00 with the remaining $100.00
   going to the OnTop BankAccount
 * **Wallet** balances are synchronized to reflect **PaymentTransactions** and status
-* **Refunds** are granted on failed withdraws
+* **Refunds** are honored on failed withdrawals and a new transaction is created to move the money
+  back
 
     * Some exceptions like throwing 500 and 404 on matching user_id where thrown for fun since
       they were included in the mocks 😁
@@ -83,4 +88,5 @@ folder [here](src/main/resources).
   through ```localhost:8001/wallets/transactions/history``` this api provides granularity by
   providing date range and amount range filters. Results are ordered in descending order and the
   amount of results per page as well as the page can be adjusted through the request.
+* Fun-fact all dummy data in the database are a reference to The Little Prince 👑🦊🌹
 
