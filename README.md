@@ -67,7 +67,7 @@ within the container to ensure portability.
 * **Refunds** are honored on failed withdrawals and a new transaction is created to move the money
   back
 
-    * Some exceptions like throwing 500 and 404 on matching user_id where thrown for fun since
+    * Some exceptions like throwing 500 and 404 on matching user_id were thrown for fun since
       they were included in the mocks 😁
 
 ## Process flow
