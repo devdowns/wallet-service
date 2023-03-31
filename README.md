@@ -72,7 +72,7 @@ within the container to ensure portability.
 
 ## Process flow
 
-The Postman collection is included inside the `resources` folder. You can access the
+A Postman collection with examples is included inside the `resources` folder. You can access the
 folder [here](src/main/resources).
 
 * You are provided with user_ids 1 & 2 starting with **$10000.00** and **$5000.00** respectively in
