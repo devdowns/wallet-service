@@ -1,3 +1,12 @@
+ALTER TABLE bank_account
+    ALTER COLUMN balance SET DEFAULT 0.00;
+
+ALTER TABLE wallet_transaction
+    ALTER COLUMN transaction_status SET DEFAULT 'PROCESSING';
+
+ALTER TABLE wallet_transaction
+    ALTER COLUMN created_at SET DEFAULT NOW();
+
 -- Dummy data for user table
 INSERT INTO public.user(name, surname, email, password)
 VALUES ('Little', 'Prince', 'little@prince.com',

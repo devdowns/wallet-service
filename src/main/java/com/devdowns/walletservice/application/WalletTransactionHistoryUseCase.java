@@ -4,13 +4,15 @@ import com.devdowns.walletservice.domain.dto.wallet.TransactionRequestFilter;
 import com.devdowns.walletservice.domain.dto.wallet.WalletTransactionHistory;
 import com.devdowns.walletservice.domain.entity.Wallet;
 import com.devdowns.walletservice.domain.entity.WalletTransaction;
+import com.devdowns.walletservice.domain.enums.TransactionType;
 import com.devdowns.walletservice.domain.exception.MalformedRequestException;
 import com.devdowns.walletservice.domain.exception.WalletNotFoundException;
-import com.devdowns.walletservice.infrastructure.inputport.TransactionInputPort;
+import com.devdowns.walletservice.infrastructure.inputport.WalletTransactionInputPort;
 import com.devdowns.walletservice.infrastructure.outputport.WalletRepository;
 import com.devdowns.walletservice.infrastructure.outputport.WalletTransactionRepository;
 import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.PageRequest;
@@ -20,12 +22,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransactionHistoryUseCase implements TransactionInputPort {
+public class WalletTransactionHistoryUseCase implements WalletTransactionInputPort {
 
   private final WalletRepository walletRepository;
   private final WalletTransactionRepository walletTransactionRepository;
 
-  public TransactionHistoryUseCase(WalletRepository walletRepository,
+  public WalletTransactionHistoryUseCase(WalletRepository walletRepository,
       WalletTransactionRepository walletTransactionRepository) {
     this.walletRepository = walletRepository;
     this.walletTransactionRepository = walletTransactionRepository;
@@ -89,14 +91,17 @@ public class TransactionHistoryUseCase implements TransactionInputPort {
     List<WalletTransaction> transactions = walletTransactionRepository.findAll(spec, pageable)
         .toList();
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+
     // Entity to DTO transformer
     return transactions.stream()
         .map(transaction -> WalletTransactionHistory.builder()
             .id(transaction.getId())
             .status(transaction.getTransactionStatus())
-            .amount(transaction.getAmount())
+            .amount(transaction.getTransactionType().equals(TransactionType.WITHDRAW) ?
+                transaction.getAmount().negate() : transaction.getAmount())
             .transactionType(transaction.getTransactionType())
-            .date(transaction.getCreatedAt())
+            .date(transaction.getCreatedAt().format(formatter))
             .build())
         .collect(Collectors.toList());
   }

@@ -10,9 +10,14 @@ public enum ErrorCodes {
 
   INSUFFICIENT_BALANCE("insufficient balance in wallet"),
 
-  INVALID_BODY("replace for your custom message"),
+  /**
+   * Replace for your custom message based on expected parameters
+   */
+  INVALID_BODY(""),
 
   WALLET_NOT_FOUND("wallet not found"),
+
+  BANKING_DETAILS_NOT_SET("no banking details found"),
 
   GENERIC_ERROR("yikes, something bad happened");
 

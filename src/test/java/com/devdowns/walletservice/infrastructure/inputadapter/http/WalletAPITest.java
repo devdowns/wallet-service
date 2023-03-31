@@ -6,8 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.devdowns.walletservice.domain.dto.wallet.BalanceResponse;
-import com.devdowns.walletservice.infrastructure.inputport.TransactionInputPort;
 import com.devdowns.walletservice.infrastructure.inputport.WalletInputPort;
+import com.devdowns.walletservice.infrastructure.inputport.WalletTransactionInputPort;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,8 +27,10 @@ public class WalletAPITest {
   @BeforeEach
   void setup() {
     walletInputPort = mock(WalletInputPort.class);
-    TransactionInputPort transactionInputPort = mock(TransactionInputPort.class);
-    mockMvc = MockMvcBuilders.standaloneSetup(new WalletAPI(walletInputPort, transactionInputPort))
+    WalletTransactionInputPort walletTransactionInputPort = mock(WalletTransactionInputPort.class);
+    mockMvc = MockMvcBuilders.standaloneSetup(new WalletAPI(walletInputPort,
+            walletTransactionInputPort,
+            bankAccountInputPort))
         .build();
   }
 

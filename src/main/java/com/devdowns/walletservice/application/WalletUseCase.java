@@ -2,6 +2,7 @@ package com.devdowns.walletservice.application;
 
 import static java.util.Objects.isNull;
 
+import com.devdowns.walletservice.domain.configuration.GlobalBankAccountSetting;
 import com.devdowns.walletservice.domain.dto.wallet.BalanceResponse;
 import com.devdowns.walletservice.domain.dto.wallet.CreateWalletTransactionRequest;
 import com.devdowns.walletservice.domain.dto.wallet.TransactionCreatedResponse;
@@ -11,17 +12,19 @@ import com.devdowns.walletservice.domain.entity.WalletTransaction;
 import com.devdowns.walletservice.domain.enums.PaymentStatus;
 import com.devdowns.walletservice.domain.enums.TransactionStatus;
 import com.devdowns.walletservice.domain.enums.TransactionType;
+import com.devdowns.walletservice.domain.exception.BankingDetailsNotSetException;
 import com.devdowns.walletservice.domain.exception.InsufficientBalanceException;
 import com.devdowns.walletservice.domain.exception.MalformedRequestException;
 import com.devdowns.walletservice.domain.exception.UserNotFoundException;
 import com.devdowns.walletservice.domain.exception.WalletNotFoundException;
 import com.devdowns.walletservice.infrastructure.inputport.PaymentInputPort;
 import com.devdowns.walletservice.infrastructure.inputport.WalletInputPort;
-import com.devdowns.walletservice.infrastructure.outputport.BankRepository;
 import com.devdowns.walletservice.infrastructure.outputport.WalletRepository;
 import com.devdowns.walletservice.infrastructure.outputport.WalletTransactionRepository;
 import jakarta.ws.rs.InternalServerErrorException;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,15 +33,15 @@ public class WalletUseCase implements WalletInputPort {
   private final WalletRepository walletRepository;
   private final WalletTransactionRepository walletTransactionRepository;
   private final PaymentInputPort paymentProcessor;
-  private final BankRepository bankRepository;
+  private GlobalBankAccountSetting bankAccountSetting;
 
   public WalletUseCase(WalletRepository walletRepository,
       WalletTransactionRepository walletTransactionRepository, PaymentUseCase paymentProcessor,
-      BankRepository bankRepository) {
+      GlobalBankAccountSetting bankAccountSetting) {
     this.walletRepository = walletRepository;
     this.walletTransactionRepository = walletTransactionRepository;
     this.paymentProcessor = paymentProcessor;
-    this.bankRepository = bankRepository;
+    this.bankAccountSetting = bankAccountSetting;
   }
 
   @Override
@@ -60,6 +63,9 @@ public class WalletUseCase implements WalletInputPort {
   @Override
   public TransactionCreatedResponse createTransaction(CreateWalletTransactionRequest request) {
 
+    //  Access banking details set in global object
+    BankAccount bankingDetails = getBankingDetails(bankAccountSetting.getBankAccountEntity());
+
     validateTransactionRequest(request);
 
     handleSpecialUserIds(request.getUserId());
@@ -72,17 +78,14 @@ public class WalletUseCase implements WalletInputPort {
 
     updateWalletBalance(wallet, request.getAmount());
 
-    //  Bank set in cache
-    BankAccount thirdPartyBank = bankRepository.findById(2L).get();
-
     TransactionType transactionType = walletTransaction.getTransactionType();
 
     // Determine which are the source and destination accounts
     // based on transaction type
     PaymentStatus status = transactionType.equals(TransactionType.WITHDRAW) ?
-        paymentProcessor.processPayment(wallet.getBankAccount(), thirdPartyBank,
+        paymentProcessor.processPayment(wallet.getBankAccount(), bankingDetails,
             request.getAmount())
-        : paymentProcessor.processPayment(thirdPartyBank, wallet.getBankAccount(),
+        : paymentProcessor.processPayment(bankingDetails, wallet.getBankAccount(),
             request.getAmount());
 
     //  Handle PaymentStatus responses from the payment processor
@@ -127,6 +130,14 @@ public class WalletUseCase implements WalletInputPort {
         .orElseThrow(() -> new WalletNotFoundException(userId));
   }
 
+  private BankAccount getBankingDetails(Optional<BankAccount> bankAccount) {
+    if (bankAccount == null) {
+      throw new BankingDetailsNotSetException();
+    }
+    return bankAccount
+        .orElseThrow(BankingDetailsNotSetException::new);
+  }
+
   private void validateSufficientBalance(Wallet wallet, BigDecimal amount) {
     if (amount.negate().compareTo(wallet.getBalance()) > 0) {
       throw new InsufficientBalanceException();
@@ -145,6 +156,7 @@ public class WalletUseCase implements WalletInputPort {
         .amount(request.getAmount().abs())
         .transactionStatus(TransactionStatus.PROCESSING)
         .transactionType(transactionType)
+        .createdAt(LocalDateTime.now())
         .build();
 
     return walletTransactionRepository.save(walletTransaction);
@@ -156,6 +168,7 @@ public class WalletUseCase implements WalletInputPort {
         .amount(amount)
         .transactionStatus(TransactionStatus.REFUNDED)
         .transactionType(TransactionType.DEPOSIT)
+        .createdAt(LocalDateTime.now())
         .build();
     walletTransactionRepository.save(refundedTransaction);
   }

@@ -42,7 +42,7 @@ public class WalletTransactionHistoryUseCaseTest {
   private WalletTransactionRepository walletTransactionRepository;
 
   @InjectMocks
-  private TransactionHistoryUseCase transactionHistoryUseCase;
+  private WalletTransactionHistoryUseCase transactionHistoryUseCase;
 
   private Wallet wallet;
   private WalletTransaction transaction, transaction2;

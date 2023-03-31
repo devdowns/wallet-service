@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,11 +20,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @Builder
 @AllArgsConstructor
-@Entity
-@Data
 @NoArgsConstructor
+@Entity
 @Table(name = "wallet_transaction")
 public class WalletTransaction {
 
@@ -50,14 +49,4 @@ public class WalletTransaction {
   @Enumerated(EnumType.STRING)
   @Column(name = "transaction_type", nullable = false)
   private TransactionType transactionType;
-
-  @PrePersist
-  public void setDefaultValues() {
-    if (transactionStatus == null) {
-      transactionStatus = TransactionStatus.PROCESSING;
-    }
-    if (createdAt == null) {
-      createdAt = LocalDateTime.now();
-    }
-  }
 }

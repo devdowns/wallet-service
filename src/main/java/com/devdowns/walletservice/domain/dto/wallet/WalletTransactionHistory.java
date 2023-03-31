@@ -4,14 +4,13 @@ import com.devdowns.walletservice.domain.enums.TransactionStatus;
 import com.devdowns.walletservice.domain.enums.TransactionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Builder
 @Getter
 @Setter
+@Builder
 public class WalletTransactionHistory {
 
   @JsonProperty("transaction_id")
@@ -27,5 +26,5 @@ public class WalletTransactionHistory {
   private TransactionType transactionType;
 
   @JsonProperty("date")
-  private LocalDateTime date;
+  private String date;
 }
