@@ -1,5 +1,7 @@
 package com.devdowns.walletservice.application;
 
+import static java.util.Objects.isNull;
+
 import com.devdowns.walletservice.domain.dto.wallet.TransactionRequestFilter;
 import com.devdowns.walletservice.domain.dto.wallet.WalletTransactionHistory;
 import com.devdowns.walletservice.domain.entity.Wallet;
@@ -37,14 +39,14 @@ public class WalletTransactionHistoryUseCase implements WalletTransactionInputPo
   public List<WalletTransactionHistory> getTransactionHistory(
       TransactionRequestFilter requestFilter) {
 
-    if (requestFilter.getUserId() == null) {
+    if (isNull(requestFilter.getUserId())) {
       throw new MalformedRequestException("user_id must not be null");
     }
 
-    Wallet wallet = walletRepository.findByUserId(requestFilter.getUserId())
+    final Wallet wallet = walletRepository.findByUserId(requestFilter.getUserId())
         .orElseThrow(() -> new WalletNotFoundException(requestFilter.getUserId()));
 
-    Pageable pageable = PageRequest.of(
+    final Pageable pageable = PageRequest.of(
         requestFilter.getPage(),
         requestFilter.getSize(),
         Sort.by("createdAt").descending()
@@ -58,7 +60,7 @@ public class WalletTransactionHistoryUseCase implements WalletTransactionInputPo
         wallet.getId())
     );
 
-    if (requestFilter.getMinAmount() != null) {
+    if (!isNull(requestFilter.getMinAmount())) {
       BigDecimal minAmount = requestFilter.getMinAmount();
       spec = spec.and((root, query, cb) -> cb.greaterThanOrEqualTo(
           root.get("amount"),
@@ -66,7 +68,7 @@ public class WalletTransactionHistoryUseCase implements WalletTransactionInputPo
       );
     }
 
-    if (requestFilter.getMaxAmount() != null) {
+    if (!isNull(requestFilter.getMaxAmount())) {
       BigDecimal maxAmount = requestFilter.getMaxAmount();
       spec = spec.and((root, query, cb) -> cb.lessThanOrEqualTo(
           root.get("amount"),
@@ -74,21 +76,21 @@ public class WalletTransactionHistoryUseCase implements WalletTransactionInputPo
       );
     }
 
-    if (requestFilter.getStartDate() != null) {
+    if (!isNull(requestFilter.getStartDate())) {
       spec = spec.and((root, query, cb) -> cb.greaterThanOrEqualTo(
           root.get("createdAt"),
           requestFilter.getStartDate().atStartOfDay())
       );
     }
 
-    if (requestFilter.getEndDate() != null) {
+    if (!isNull(requestFilter.getEndDate())) {
       spec = spec.and((root, query, cb) -> cb.lessThanOrEqualTo(
           root.get("createdAt"),
           requestFilter.getEndDate().atTime(LocalTime.MAX))
       );
     }
 
-    List<WalletTransaction> transactions = walletTransactionRepository.findAll(spec, pageable)
+    final List<WalletTransaction> transactions = walletTransactionRepository.findAll(spec, pageable)
         .toList();
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");

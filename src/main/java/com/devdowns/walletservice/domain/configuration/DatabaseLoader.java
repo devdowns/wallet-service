@@ -18,7 +18,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    Resource resource = new ClassPathResource("data.sql");
+    final Resource resource = new ClassPathResource("data.sql");
     try (var connection = dataSource.getConnection()) {
       ScriptUtils.executeSqlScript(connection, resource);
       System.out.println("Data.sql script executed successfully");

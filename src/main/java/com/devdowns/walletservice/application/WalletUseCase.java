@@ -47,11 +47,11 @@ public class WalletUseCase implements WalletInputPort {
   @Override
   public BalanceResponse checkBalance(Long userId) {
 
-    if (userId == null) {
+    if (isNull(userId)) {
       throw new MalformedRequestException("user_id must not be null");
     }
 
-    Wallet wallet = walletRepository.findByUserId(userId)
+    final Wallet wallet = walletRepository.findByUserId(userId)
         .orElseThrow(() -> new WalletNotFoundException(userId));
 
     return BalanceResponse.builder()
@@ -64,25 +64,25 @@ public class WalletUseCase implements WalletInputPort {
   public TransactionCreatedResponse createTransaction(CreateWalletTransactionRequest request) {
 
     //  Access banking details set in global object
-    BankAccount bankingDetails = getBankingDetails(bankAccountSetting.getBankAccountEntity());
+    final BankAccount bankingDetails = getBankingDetails(bankAccountSetting.getBankAccountEntity());
 
     validateTransactionRequest(request);
 
     handleSpecialUserIds(request.getUserId());
 
-    Wallet wallet = findWalletByUserId(request.getUserId());
+    final Wallet wallet = findWalletByUserId(request.getUserId());
 
     validateSufficientBalance(wallet, request.getAmount());
 
-    WalletTransaction walletTransaction = createWalletTransaction(request, wallet);
+    final WalletTransaction walletTransaction = createWalletTransaction(request, wallet);
 
     updateWalletBalance(wallet, request.getAmount());
 
-    TransactionType transactionType = walletTransaction.getTransactionType();
+    final TransactionType transactionType = walletTransaction.getTransactionType();
 
     // Determine which are the source and destination accounts
     // based on transaction type
-    PaymentStatus status = transactionType.equals(TransactionType.WITHDRAW) ?
+    final PaymentStatus status = transactionType.equals(TransactionType.WITHDRAW) ?
         paymentProcessor.processPayment(wallet.getBankAccount(), bankingDetails,
             request.getAmount())
         : paymentProcessor.processPayment(bankingDetails, wallet.getBankAccount(),
@@ -137,7 +137,7 @@ public class WalletUseCase implements WalletInputPort {
   }
 
   private BankAccount getBankingDetails(Optional<BankAccount> bankAccount) {
-    if (bankAccount == null) {
+    if (bankAccount.isEmpty()) {
       throw new BankingDetailsNotSetException();
     }
     return bankAccount
@@ -153,30 +153,29 @@ public class WalletUseCase implements WalletInputPort {
   private WalletTransaction createWalletTransaction(CreateWalletTransactionRequest request,
       Wallet wallet) {
 
-    TransactionType transactionType =
+    final TransactionType transactionType =
         request.getAmount().compareTo(BigDecimal.ZERO) < 0 ? TransactionType.WITHDRAW
             : TransactionType.DEPOSIT;
 
-    WalletTransaction walletTransaction = WalletTransaction.builder()
+    return walletTransactionRepository.save(WalletTransaction.builder()
         .wallet(wallet)
         .amount(request.getAmount().abs())
         .transactionStatus(TransactionStatus.PROCESSING)
         .transactionType(transactionType)
         .createdAt(LocalDateTime.now())
-        .build();
-
-    return walletTransactionRepository.save(walletTransaction);
+        .build()
+    );
   }
 
   private void createRefundWalletTransaction(Wallet wallet, BigDecimal amount) {
-    WalletTransaction refundedTransaction = WalletTransaction.builder()
+    walletTransactionRepository.save(WalletTransaction.builder()
         .wallet(wallet)
         .amount(amount)
         .transactionStatus(TransactionStatus.REFUNDED)
         .transactionType(TransactionType.DEPOSIT)
         .createdAt(LocalDateTime.now())
-        .build();
-    walletTransactionRepository.save(refundedTransaction);
+        .build()
+    );
   }
 
 

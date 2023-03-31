@@ -26,14 +26,14 @@ public class PaymentUseCase implements PaymentInputPort {
 
   public PaymentStatus processPayment(BankAccount source, BankAccount destination,
       BigDecimal amount) {
-    BigDecimal netAmount = amount.abs();
+    final BigDecimal netAmount = amount.abs();
 
     //  Pre-emptively remove funds from the source account
     source.setBalance(source.getBalance().subtract(netAmount));
     bankAccountRepository.save(source);
 
     //  Check if the transaction goes through or not
-    PaymentStatus status = generateRandomPaymentTransactionStatus();
+    final PaymentStatus status = generateRandomPaymentTransactionStatus();
 
     //  Check if a refund must be issued and grant it
     if (status.equals(PaymentStatus.FAILED)) {
@@ -57,14 +57,15 @@ public class PaymentUseCase implements PaymentInputPort {
 
   private void createBankTransaction(BankAccount source, BankAccount destination, BigDecimal amount,
       PaymentStatus status) {
-    PaymentTransaction paymentTransaction = PaymentTransaction.builder()
-        .paymentStatus(status)
-        .transactionDate(LocalDateTime.now())
-        .source(source)
-        .amount(amount)
-        .destination(destination)
-        .build();
-    paymentTransactionRepository.save(paymentTransaction);
+    paymentTransactionRepository.save(
+        PaymentTransaction.builder()
+            .paymentStatus(status)
+            .transactionDate(LocalDateTime.now())
+            .source(source)
+            .amount(amount)
+            .destination(destination)
+            .build()
+    );
   }
 }
 
