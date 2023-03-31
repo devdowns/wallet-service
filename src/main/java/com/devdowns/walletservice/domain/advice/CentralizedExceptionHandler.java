@@ -1,6 +1,6 @@
 package com.devdowns.walletservice.domain.advice;
 
-import com.devdowns.walletservice.domain.dto.ErrorRepresentation;
+import com.devdowns.walletservice.domain.dto.wallet.ErrorRepresentation;
 import com.devdowns.walletservice.domain.enums.ErrorCodes;
 import com.devdowns.walletservice.domain.exception.InsufficientBalanceException;
 import com.devdowns.walletservice.domain.exception.MalformedRequestException;

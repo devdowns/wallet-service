@@ -1,4 +1,4 @@
-package com.devdowns.walletservice.domain.dto;
+package com.devdowns.walletservice.domain.dto.wallet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,4 +1,4 @@
-package com.devdowns.walletservice.domain.dto;
+package com.devdowns.walletservice.domain.dto.wallet;
 
 import com.devdowns.walletservice.domain.enums.TransactionStatus;
 import com.devdowns.walletservice.domain.enums.TransactionType;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class TransactionHistory {
+public class WalletTransactionHistory {
 
   @JsonProperty("transaction_id")
   private Long id;

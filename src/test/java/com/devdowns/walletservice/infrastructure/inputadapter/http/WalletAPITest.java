@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.devdowns.walletservice.domain.dto.BalanceResponse;
+import com.devdowns.walletservice.domain.dto.wallet.BalanceResponse;
 import com.devdowns.walletservice.infrastructure.inputport.TransactionInputPort;
 import com.devdowns.walletservice.infrastructure.inputport.WalletInputPort;
 import java.math.BigDecimal;

@@ -1,10 +1,10 @@
 package com.devdowns.walletservice.infrastructure.inputadapter.http;
 
-import com.devdowns.walletservice.domain.dto.BalanceResponse;
-import com.devdowns.walletservice.domain.dto.CreateTransactionRequest;
-import com.devdowns.walletservice.domain.dto.TransactionCreatedResponse;
-import com.devdowns.walletservice.domain.dto.TransactionHistory;
-import com.devdowns.walletservice.domain.dto.TransactionRequestFilter;
+import com.devdowns.walletservice.domain.dto.wallet.BalanceResponse;
+import com.devdowns.walletservice.domain.dto.wallet.CreateWalletTransactionRequest;
+import com.devdowns.walletservice.domain.dto.wallet.TransactionCreatedResponse;
+import com.devdowns.walletservice.domain.dto.wallet.TransactionRequestFilter;
+import com.devdowns.walletservice.domain.dto.wallet.WalletTransactionHistory;
 import com.devdowns.walletservice.infrastructure.inputport.TransactionInputPort;
 import com.devdowns.walletservice.infrastructure.inputport.WalletInputPort;
 import java.util.List;
@@ -30,7 +30,7 @@ public class WalletAPI {
 
   @PostMapping("/transactions")
   public ResponseEntity<TransactionCreatedResponse> createWalletTransaction(
-      @RequestBody CreateTransactionRequest request) {
+      @RequestBody CreateWalletTransactionRequest request) {
     TransactionCreatedResponse response = walletInputPort.createTransaction(request);
     return ResponseEntity.ok().body(response);
   }
@@ -41,11 +41,11 @@ public class WalletAPI {
     return ResponseEntity.ok().body(response);
   }
 
-  @GetMapping("/transactions/history")
-  public ResponseEntity<List<TransactionHistory>> getHistory(
+  @PostMapping("/transactions/history")
+  public ResponseEntity<List<WalletTransactionHistory>> getHistory(
       @RequestBody TransactionRequestFilter requestFilter) {
-    List<TransactionHistory> response = transactionInputPort.getTransactionHistory(requestFilter);
+    List<WalletTransactionHistory> response = transactionInputPort.getTransactionHistory(
+        requestFilter);
     return ResponseEntity.ok().body(response);
   }
-
 }

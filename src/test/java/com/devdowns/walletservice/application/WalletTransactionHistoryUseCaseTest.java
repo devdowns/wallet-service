@@ -5,8 +5,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.devdowns.walletservice.domain.dto.TransactionHistory;
-import com.devdowns.walletservice.domain.dto.TransactionRequestFilter;
+import com.devdowns.walletservice.domain.dto.wallet.TransactionRequestFilter;
+import com.devdowns.walletservice.domain.dto.wallet.WalletTransactionHistory;
 import com.devdowns.walletservice.domain.entity.User;
 import com.devdowns.walletservice.domain.entity.Wallet;
 import com.devdowns.walletservice.domain.entity.WalletTransaction;
@@ -33,7 +33,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 @ExtendWith(MockitoExtension.class)
-public class TransactionHistoryUseCaseTest {
+public class WalletTransactionHistoryUseCaseTest {
 
   @Mock
   private WalletRepository walletRepository;
@@ -113,21 +113,21 @@ public class TransactionHistoryUseCaseTest {
         .thenReturn(new PageImpl<>(List.of(transaction, transaction2)));
 
     // Act
-    List<TransactionHistory> transactionHistoryList = transactionHistoryUseCase.getTransactionHistory(
+    List<WalletTransactionHistory> walletTransactionHistoryList = transactionHistoryUseCase.getTransactionHistory(
         permissiveFilter);
-    TransactionHistory transactionHistory = transactionHistoryList.get(1);
+    WalletTransactionHistory walletTransactionHistory = walletTransactionHistoryList.get(1);
 
     // Assert
     verify(walletRepository).findByUserId(wallet.getUser().getId());
     verify(walletTransactionRepository).findAll(any(Specification.class), any(Pageable.class));
 
-    Assertions.assertEquals(2, transactionHistoryList.size());
+    Assertions.assertEquals(2, walletTransactionHistoryList.size());
     Assertions.assertTrue(transaction2.getCreatedAt().isAfter(transaction.getCreatedAt()));
-    Assertions.assertEquals(transaction2.getId(), transactionHistory.getId());
-    Assertions.assertEquals(transaction2.getAmount(), transactionHistory.getAmount());
+    Assertions.assertEquals(transaction2.getId(), walletTransactionHistory.getId());
+    Assertions.assertEquals(transaction2.getAmount(), walletTransactionHistory.getAmount());
     Assertions.assertEquals(transaction2.getTransactionStatus(),
-        transactionHistory.getStatus());
-    Assertions.assertEquals(transaction2.getCreatedAt(), transactionHistory.getDate());
+        walletTransactionHistory.getStatus());
+    Assertions.assertEquals(transaction2.getCreatedAt(), walletTransactionHistory.getDate());
   }
 
   @Test
@@ -140,14 +140,14 @@ public class TransactionHistoryUseCaseTest {
         .thenReturn(new PageImpl<>(Collections.emptyList()));
 
     // Act
-    List<TransactionHistory> transactionHistoryList = transactionHistoryUseCase.getTransactionHistory(
+    List<WalletTransactionHistory> walletTransactionHistoryList = transactionHistoryUseCase.getTransactionHistory(
         restrictiveFilter);
 
     // Assert
     verify(walletRepository).findByUserId(wallet.getUser().getId());
     verify(walletTransactionRepository).findAll(any(Specification.class), any(Pageable.class));
 
-    Assertions.assertTrue(transactionHistoryList.isEmpty());
+    Assertions.assertTrue(walletTransactionHistoryList.isEmpty());
   }
 
   @Test

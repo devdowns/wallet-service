@@ -4,10 +4,10 @@ VALUES ('Little', 'Prince',  'little@prince.com', '$2a$12$E1pxxifMLHfQ2/2g/nc8UO
        ('The', 'Fox', 'the@fox.com', '$2a$12$E1pxxifMLHfQ2/2g/nc8UOZ6Ukfx6m1TJFnYRGm3.eUnzF1w6JvZ6');
 
 -- Dummy data for bank_account table
-INSERT INTO bank_account(name, surname, national_id, account_number, routing_number, bank_name)
-VALUES ('OnTop', 'Bank', '1234567890', '1234567890123456', '123456789', 'OnTop'),
-       ('Little', 'Prince', '0987654321', '9876543210987654', '987654321', 'B612'),
-       ('The', 'Fox', '4567890123', '4567890123456789', '456789012', 'Desert');
+INSERT INTO bank_account(name, surname, national_id, account_number, routing_number, bank_name, balance)
+VALUES ('OnTop', 'Bank', '1234567890', '1234567890123456', '123456789', 'OnTop', 10000000),
+       ('Little', 'Prince', '0987654321', '9876543210987654', '987654321', 'B612', 20000),
+       ('The', 'Fox', '4567890123', '4567890123456789', '456789012', 'Desert',30000);
 
 -- Define variable to hold OnTop bank account id
 DO $$

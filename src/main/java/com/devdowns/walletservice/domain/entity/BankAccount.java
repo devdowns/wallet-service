@@ -6,13 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -40,4 +41,7 @@ public class BankAccount {
 
   @Column(name = "bank_name", nullable = false, length = 50)
   private String bankName;
+
+  @Column(name = "balance", nullable = false)
+  private BigDecimal balance;
 }

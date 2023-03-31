@@ -1,7 +1,7 @@
 package com.devdowns.walletservice.application;
 
-import com.devdowns.walletservice.domain.dto.TransactionHistory;
-import com.devdowns.walletservice.domain.dto.TransactionRequestFilter;
+import com.devdowns.walletservice.domain.dto.wallet.TransactionRequestFilter;
+import com.devdowns.walletservice.domain.dto.wallet.WalletTransactionHistory;
 import com.devdowns.walletservice.domain.entity.Wallet;
 import com.devdowns.walletservice.domain.entity.WalletTransaction;
 import com.devdowns.walletservice.domain.exception.MalformedRequestException;
@@ -32,7 +32,8 @@ public class TransactionHistoryUseCase implements TransactionInputPort {
   }
 
   @Override
-  public List<TransactionHistory> getTransactionHistory(TransactionRequestFilter requestFilter) {
+  public List<WalletTransactionHistory> getTransactionHistory(
+      TransactionRequestFilter requestFilter) {
 
     if (requestFilter.getUserId() == null) {
       throw new MalformedRequestException("user_id must not be null");
@@ -90,7 +91,7 @@ public class TransactionHistoryUseCase implements TransactionInputPort {
 
     // Entity to DTO transformer
     return transactions.stream()
-        .map(transaction -> TransactionHistory.builder()
+        .map(transaction -> WalletTransactionHistory.builder()
             .id(transaction.getId())
             .status(transaction.getTransactionStatus())
             .amount(transaction.getAmount())

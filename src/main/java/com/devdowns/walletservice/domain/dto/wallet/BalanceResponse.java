@@ -1,12 +1,14 @@
-package com.devdowns.walletservice.domain.dto;
+package com.devdowns.walletservice.domain.dto.wallet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 public class BalanceResponse {
