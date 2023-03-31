@@ -96,6 +96,7 @@ public class WalletUseCase implements WalletInputPort {
       createRefundWalletTransaction(wallet, request.getAmount().abs());
     } else if (status.equals(PaymentStatus.FAILED) && transactionType.equals(
         TransactionType.DEPOSIT)) {
+      wallet.setBalance(wallet.getBalance().add(request.getAmount().negate()));
       updateTransactionStatus(walletTransaction, TransactionStatus.FAILED);
     } else {
       updateTransactionStatus(walletTransaction, TransactionStatus.COMPLETED);
@@ -108,6 +109,11 @@ public class WalletUseCase implements WalletInputPort {
       TransactionStatus status) {
     walletTransaction.setTransactionStatus(status);
     walletTransactionRepository.save(walletTransaction);
+  }
+
+  private void updateWalletBalance(Wallet wallet, BigDecimal amount) {
+    wallet.setBalance(wallet.getBalance().add(amount));
+    walletRepository.save(wallet);
   }
 
   private void validateTransactionRequest(CreateWalletTransactionRequest request) {
@@ -173,10 +179,6 @@ public class WalletUseCase implements WalletInputPort {
     walletTransactionRepository.save(refundedTransaction);
   }
 
-  private void updateWalletBalance(Wallet wallet, BigDecimal amount) {
-    wallet.setBalance(wallet.getBalance().add(amount));
-    walletRepository.save(wallet);
-  }
 
   private TransactionCreatedResponse buildTransactionCreatedResponse(WalletTransaction transaction,
       CreateWalletTransactionRequest request) {

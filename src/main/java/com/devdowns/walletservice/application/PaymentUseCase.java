@@ -8,7 +8,6 @@ import com.devdowns.walletservice.infrastructure.outputport.BankAccountRepositor
 import com.devdowns.walletservice.infrastructure.outputport.PaymentTransactionRepository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Random;
 import org.springframework.stereotype.Service;
 
@@ -29,30 +28,31 @@ public class PaymentUseCase implements PaymentInputPort {
       BigDecimal amount) {
     BigDecimal netAmount = amount.abs();
 
-    //  Transfer the funds
+    //  Pre-emptively remove funds from the source account
     source.setBalance(source.getBalance().subtract(netAmount));
-    destination.setBalance(destination.getBalance().add(netAmount));
-    bankAccountRepository.saveAll(List.of(source, destination));
+    bankAccountRepository.save(source);
 
-    //  Check transaction status
+    //  Check if the transaction goes through or not
     PaymentStatus status = generateRandomPaymentTransactionStatus();
 
     //  Check if a refund must be issued and grant it
     if (status.equals(PaymentStatus.FAILED)) {
-      destination.setBalance(destination.getBalance().subtract(netAmount));
-      source.setBalance(source.getBalance().add(netAmount));
-      bankAccountRepository.saveAll(List.of(source, destination));
-
-      //  Persist refund transaction
-      createBankTransaction(destination, source, netAmount, PaymentStatus.COMPLETED);
+      createBankTransaction(destination, source, netAmount, status);
+      updateAccountBalance(source, netAmount);
+    } else if (status.equals(PaymentStatus.COMPLETED)) {
+      createBankTransaction(source, destination, netAmount, status);
+      updateAccountBalance(destination, netAmount);
     }
-
-    createBankTransaction(source, destination, netAmount, status);
     return status;
   }
 
   private PaymentStatus generateRandomPaymentTransactionStatus() {
     return PaymentStatus.values()[random.nextInt(PaymentStatus.values().length)];
+  }
+
+  private void updateAccountBalance(BankAccount bankAccount, BigDecimal amount) {
+    bankAccount.setBalance(bankAccount.getBalance().add(amount));
+    bankAccountRepository.save(bankAccount);
   }
 
   private void createBankTransaction(BankAccount source, BankAccount destination, BigDecimal amount,
