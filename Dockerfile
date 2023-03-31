@@ -10,7 +10,7 @@ COPY src/ /app/src/
 RUN mvn package -DskipTests
 
 #Run
-FROM openjdk:17-oracle
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 

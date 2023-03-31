@@ -91,7 +91,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <description>Payments service</description>
+  <description>Wallet and payments</description>
   <groupId>com.devdowns</groupId>
 
   <modelVersion>4.0.0</modelVersion>
