@@ -112,6 +112,7 @@ public class WalletUseCase implements WalletInputPort {
   }
 
   private void updateWalletBalance(Wallet wallet, BigDecimal amount) {
+    System.out.println("### adding to wallet" + amount);
     wallet.setBalance(wallet.getBalance().add(amount));
     walletRepository.save(wallet);
   }
@@ -177,13 +178,14 @@ public class WalletUseCase implements WalletInputPort {
         .build()
     );
   }
-  
+
   private TransactionCreatedResponse buildTransactionCreatedResponse(WalletTransaction transaction,
       CreateWalletTransactionRequest request) {
     return TransactionCreatedResponse.builder()
         .walletTransactionId(transaction.getId())
         .userId(request.getUserId())
         .amount(request.getAmount())
+        .transactionStatus(transaction.getTransactionStatus())
         .build();
   }
 }

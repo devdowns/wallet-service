@@ -1,5 +1,6 @@
 package com.devdowns.walletservice.domain.dto;
 
+import com.devdowns.walletservice.domain.enums.TransactionStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import lombok.Builder;
@@ -19,4 +20,7 @@ public class TransactionCreatedResponse {
 
   @JsonProperty("user_id")
   private Long userId;
+
+  @JsonProperty("status")
+  private TransactionStatus transactionStatus;
 }

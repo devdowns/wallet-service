@@ -209,7 +209,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Fri, 31 Mar 2023 19:01:03 GMT"
+							"value": "Sun, 02 Apr 2023 00:36:50 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -221,7 +221,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"wallet_transaction_id\": 1,\n    \"amount\": -1000,\n    \"user_id\": 1\n}"
+					"body": "{\n    \"wallet_transaction_id\": 15,\n    \"amount\": -1000,\n    \"user_id\": 1,\n    \"status\": \"COMPLETED\"\n}"
 				},
 				{
 					"name": "200 topup✓",
@@ -263,7 +263,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Fri, 31 Mar 2023 19:01:16 GMT"
+							"value": "Sun, 02 Apr 2023 00:38:30 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -275,7 +275,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"wallet_transaction_id\": 2,\n    \"amount\": 2000,\n    \"user_id\": 1\n}"
+					"body": "{\n    \"wallet_transaction_id\": 3,\n    \"amount\": 2000,\n    \"user_id\": 1,\n    \"status\": \"COMPLETED\"\n}"
 				},
 				{
 					"name": "400 (Insufficient Balance)✓",

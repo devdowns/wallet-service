@@ -28,6 +28,11 @@ public class PaymentUseCase implements PaymentInputPort {
       BigDecimal amount) {
     final BigDecimal netAmount = amount.abs();
 
+    //  Verify funds on source
+    if (!isSufficientBalanceOnSource(source.getBalance(), amount)) {
+      return PaymentStatus.FAILED;
+    }
+
     //  Pre-emptively remove funds from the source account
     source.setBalance(source.getBalance().subtract(netAmount));
     bankAccountRepository.save(source);
@@ -50,6 +55,11 @@ public class PaymentUseCase implements PaymentInputPort {
   private PaymentStatus generateRandomPaymentTransactionStatus() {
     return PaymentStatus.values()[random.nextInt(PaymentStatus.values().length)];
   }
+
+  private boolean isSufficientBalanceOnSource(BigDecimal funds, BigDecimal amount) {
+    return funds.compareTo(amount) >= 0;
+  }
+
 
   private void updateAccountBalance(BankAccount bankAccount, BigDecimal amount) {
     bankAccount.setBalance(bankAccount.getBalance().add(amount));
