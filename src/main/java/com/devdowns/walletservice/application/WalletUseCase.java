@@ -112,7 +112,6 @@ public class WalletUseCase implements WalletInputPort {
   }
 
   private void updateWalletBalance(Wallet wallet, BigDecimal amount) {
-    System.out.println("### adding to wallet" + amount);
     wallet.setBalance(wallet.getBalance().add(amount));
     walletRepository.save(wallet);
   }
